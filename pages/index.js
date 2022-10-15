@@ -7,53 +7,51 @@ import Dial from "./Dials.js";
 import * as Dials from "./Dials.js";
 
 export default function Home() {
-  const bigarray = [];
-  for (let step = 1; step < 80; step++) {
-    bigarray.push({ step });
-  }
-
   const steps = [
     {
       id: 0,
+      display: "block",
       text: "Be born",
-      color: "bg-red-300",
-      enable: 1,
+      color: "bg-gray-200",
+      enable: [1],
     },
     {
       id: 1,
+      display: "none",
       text: "Go to school",
-      color: "bg-blue-400",
-      enable: 2,
+      color: "bg-gray-200",
+      enable: [2, 3],
     },
     {
       id: 2,
+      display: "none",
       text: "Graduate from college",
-      color: "bg-blue-400",
-      enable: 3,
+      color: "bg-gray-200",
+      enable: [3],
     },
     {
       id: 3,
+      display: "none",
       text: "Make friends",
-      color: "bg-green-300",
-      enable: 4,
+      color: "bg-gray-200",
+      enable: [4],
     },
     {
       id: 4,
+      display: "none",
       text: "Discover hobbies",
-      color: "bg-blue-400",
-      enable: 5,
+      color: "bg-gray-200",
+      enable: [5],
     },
   ];
 
-  const [selected, setSelected] = React.useState();
-  const [highlighted, setHighlighted] = React.useState();
-  const [firstStep, setFirstStep] = React.useState();
-  const [secondStep, setSecondStep] = React.useState();
-  const [thirdStep, setThirdStep] = React.useState();
+  const [highlighted, setHighlighted] = React.useState(undefined);
+  const clearHighlight = () => setHighlighted(undefined);
 
-  function boop(e) {
-    console.log(e);
-  }
+  const onChildHighlightedChangedOrSomethingLikeThat = (newEnabled) => {
+    // here is where we'd do some logic based on stuff
+    setHighlighted(newEnabled);
+  };
 
   return (
     <div className={styles.container}>
@@ -67,18 +65,17 @@ export default function Home() {
             <Dials.Step
               id={i.id}
               text={i.text}
+              display={i.display}
               color={i.color}
               enable={i.enable}
-              onHighlight={setHighlighted}
+              onHighlight={onChildHighlightedChangedOrSomethingLikeThat}
+              highlighted={highlighted}
+              clearHighlight={clearHighlight}
             />
           ))}
         </div>
       </>
-      <div className="w-full flex flex-wrap mt-8">
-        {bigarray.map((i) => (
-          <Box id={i.step} onPeerSearch={setSelected} selected={selected} />
-        ))}
-      </div>
+
       <div></div>
     </div>
   );

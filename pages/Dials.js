@@ -15,41 +15,35 @@ function Default(props) {
   );
 }
 
-export function SecondStep(props) {
-  const onToggle = (e) => {
-    props.onToggle(!props.nextActive);
-  };
-
-  return props.active ? (
-    <div
-      className="bg-blue-500 p-3 rounded-md text-white font-bold mt-4"
-      onClick={onToggle}
-    >
-      Go to school?
+export function Song(props) {
+  return (
+    <div className={`w-32 h-32 p-2 rounded-lg ${props.color}`}>
+      {props.text} {props.listOfMedia}
     </div>
-  ) : null;
+  );
 }
 
 export function Step(props) {
-  if (props.id == props.enable) {
-    // let color = "black";
+  let color = props.display;
+  if (props.highlighted?.includes(props.id)) {
+    props.display = "block";
   } else {
-    // let color = "red";
-    console.log(`${props.id} is not ${props.enable}`);
+    // console.log(`${props.id} is not ${props.enable}`);
   }
+
+  console.log(props.id, props.display);
 
   const highlightNext = (e) => {
     props.onHighlight(props.enable);
-    console.log(props.enable);
   };
 
   return (
     <div
       className={`w-32 h-32 p-2 rounded-lg ${props.color}`}
-      onMouseOver={highlightNext}
-      // style={{ backgroundColor: color }}
+      onMouseDown={highlightNext}
+      style={{ display: color }}
     >
-      {props.text} ({props.id} -- enable {props.enable})
+      {props.text}
     </div>
   );
 }
