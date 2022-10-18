@@ -3,14 +3,11 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
-  const [stepOne, setStepOne] = React.useState(true);
+  const [stepOne, setStepOne] = React.useState("selected");
   const [stepTwo, setStepTwo] = React.useState(false);
   const [stepThree, setStepThree] = React.useState(false);
-
-  const onToggle = (e) => {
-    console.log("add #2");
-    setStepTwo(true);
-  };
+  const [stepFour, setStepFour] = React.useState(false);
+  const [stepFive, setStepFive] = React.useState(false);
 
   return (
     <div className={styles.container}>
@@ -19,34 +16,80 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="w-full mt-8">
-        {stepOne && <StepOne setStepTwo={setStepTwo} />}
-        {stepTwo && <StepTwo />}
-        <StepThree StepTwo={stepTwo} StepOne={stepOne} />
+        {stepOne && <StepOne setStepOne={setStepOne} setStepTwo={setStepTwo} />}
+        {stepTwo && (
+          <StepTwo
+            setStepTwo={setStepTwo}
+            setStepThree={setStepThree}
+            setStepFour={setStepFour}
+          />
+        )}
+        {stepThree && (
+          <StepThree setStepThree={setStepThree} setStepFour={setStepFour} />
+        )}
+        {stepFour && (
+          <StepFour setStepFour={setStepFour} setStepFive={setStepFive} />
+        )}
       </div>
       <br />
-      <div className="bg-blue-50 mt-4 inline p-3" onMouseDown={onToggle}>
-        Add #2
-      </div>
     </div>
   );
 }
 
 export function StepOne(props) {
   const onToggle = (e) => {
-    props.setStepTwo(true);
+    props.setStepOne("selected");
+    props.setStepTwo("visible");
   };
   return (
     <div className="p-2 rounded-md bg-gray-200 inline" onMouseDown={onToggle}>
-      StepOne
+      Be born?
     </div>
   );
 }
 
 export function StepTwo(props) {
-  return <div className="p-2 rounded-md bg-gray-200 inline ml-2">StepTwo</div>;
+  const onToggle = (e) => {
+    props.setStepTwo("selected");
+    props.setStepThree("visible");
+    props.setStepFour("visible");
+  };
+  return (
+    <div
+      className="p-2 rounded-md bg-gray-200 inline ml-2"
+      onMouseDown={onToggle}
+    >
+      Go to school?
+    </div>
+  );
 }
+
 export function StepThree(props) {
-  return props.StepTwo && props.StepOne ? (
-    <div className="p-2 rounded-md bg-gray-200 inline ml-2">StepThree</div>
-  ) : null;
+  const onToggle = (e) => {
+    props.setStepThree("selected");
+    props.setStepFour("visible");
+  };
+  return (
+    <div
+      className="p-2 rounded-md bg-gray-200 inline ml-2"
+      onMouseDown={onToggle}
+    >
+      Graduate from college?
+    </div>
+  );
+}
+
+export function StepFour(props) {
+  const onToggle = (e) => {
+    props.setStepFour("selected");
+    props.setStepFive("visible");
+  };
+  return (
+    <div
+      className="p-2 rounded-md bg-gray-200 inline ml-2"
+      onMouseDown={onToggle}
+    >
+      Get a job?
+    </div>
+  );
 }
