@@ -26,7 +26,7 @@ export function Song(props) {
 export function Step(props) {
   let color = props.display;
   if (props.highlighted?.includes(props.id)) {
-    props.display = "block";
+    // props.display = "block";
   } else {
     // console.log(`${props.id} is not ${props.enable}`);
   }
