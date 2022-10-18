@@ -15,6 +15,46 @@ export default function Home() {
   const [stepFour, setStepFour] = React.useState(false);
   const [stepFive, setStepFive] = React.useState(false);
 
+  const [visibleArray, setVisibleArray] = React.useState([0]);
+
+  const bigarray = [
+    {
+      id: 0,
+      display: "block",
+      text: "Be born",
+      color: "bg-gray-200",
+      enable: [1],
+    },
+    {
+      id: 1,
+      display: "none",
+      text: "Go to school",
+      color: "bg-gray-200",
+      enable: [2, 3],
+    },
+    {
+      id: 2,
+      display: "none",
+      text: "Graduate from college",
+      color: "bg-gray-200",
+      enable: [3],
+    },
+    {
+      id: 3,
+      display: "none",
+      text: "Make friends",
+      color: "bg-gray-200",
+      enable: [4],
+    },
+    {
+      id: 4,
+      display: "none",
+      text: "Discover hobbies",
+      color: "bg-gray-200",
+      enable: [5],
+    },
+  ];
+
   return (
     <div className={styles.container}>
       <Head>
@@ -39,6 +79,30 @@ export default function Home() {
         {stepFive && <StepFive setStepFour={setStepFour} />}
       </div>
       <br />
+
+      {bigarray.map((i) => (
+        <Superbox
+          visibleArray={visibleArray}
+          setVisibleArray={setVisibleArray}
+          id={i.id}
+          text={i.text}
+        />
+      ))}
+    </div>
+  );
+}
+
+export function Superbox(props) {
+  const onToggle = (e) => {
+    // props.setVisibleArray([props.visibleArray].concat(props.id));
+    props.setVisibleArray([...props.visibleArray, props.id]);
+  };
+  return (
+    <div onMouseDown={onToggle}>
+      // ID #{props.id} (Visible array is {props.visibleArray}){props.text}
+      {props.visibleArray.includes(props.id) ? (
+        <span>yes this id is in the array</span>
+      ) : null}
     </div>
   );
 }
