@@ -10,59 +10,44 @@ function classNames(...classes) {
 
 export default function Home() {
   const [visibleArray, setVisibleArray] = React.useState([0]);
-  const [selectedArray, setSelectedArray] = React.useState([0]);
 
   const steps = [
     {
       id: 0,
+      display: "block",
       text: "Be born",
+      color: "bg-gray-200",
       enable: [1],
     },
     {
       id: 1,
-      text: "Be born",
-      enable: [2],
+      display: "none",
+      text: "Go to school",
+      color: "bg-gray-200",
+      enable: [2, 3, 4],
     },
     {
       id: 2,
-      text: "Go to school",
+      display: "none",
+      text: "Graduate from college",
+      color: "bg-gray-200",
       enable: [3],
     },
     {
       id: 3,
-      text: "Graduate from college",
-      enable: [4, 5],
+      display: "none",
+      text: "Make friends",
+      color: "bg-gray-200",
+      enable: [2, 3, 4],
     },
     {
       id: 4,
-      text: "Make friends",
-      enable: [6],
-    },
-    {
-      id: 5,
+      display: "none",
       text: "Discover hobbies",
-      enable: [7],
+      color: "bg-gray-200",
+      enable: [5],
     },
   ];
-
-  const enabledItems = new Set();
-  for (let id of selectedArray) {
-    const step = steps.find((currentStep) => currentStep.id === id);
-    for (let nextStep of step.enable) {
-      enabledItems.add(nextStep);
-    }
-  }
-  console.log(enabledItems);
-
-  const onChildToggle = (id) => {
-    if (selectedArray.includes(id)) {
-      // remove it
-      setSelectedArray(selectedArray.filter((currentId) => currentId !== id));
-    } else {
-      // add it
-      setSelectedArray([...selectedArray, id]);
-    }
-  };
 
   return (
     <div className={styles.container}>
@@ -73,10 +58,11 @@ export default function Home() {
 
       {steps.map((i) => (
         <Superbox
+          visibleArray={visibleArray}
+          setVisibleArray={setVisibleArray}
           id={i.id}
           text={i.text}
-          enable={enabledItems}
-          onChildToggle={onChildToggle}
+          enable={i.enable}
         />
       ))}
     </div>
@@ -85,15 +71,20 @@ export default function Home() {
 
 export function Superbox(props) {
   const onToggle = (e) => {
-    props.onChildToggle(props.id);
+    if (props.visibleArray?.includes(props.id)) {
+      // remove it
+      props.setVisibleArray(
+        props.visibleArray.filter((v) => props.enable.includes(v))
+      );
+    } else {
+      // add it
+      props.setVisibleArray([...props.visibleArray, ...props.enable]);
+    }
   };
   return (
     <div onMouseDown={onToggle}>
-      {props.enable.has(props.id) ? (
-        <div>
-          {props.id} {props.text}
-        </div>
-      ) : null}
+      {props.id} {props.text} {props.enable}
+      {props.visibleArray.includes(props.id) ? <span>*</span> : null}
     </div>
   );
 }
