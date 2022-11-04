@@ -1,4 +1,5 @@
 const { defineConfig } = require("cypress");
+const cypressReplay = require("@replayio/cypress");
 
 module.exports = defineConfig({
   projectId: "y3akbv",
@@ -6,6 +7,7 @@ module.exports = defineConfig({
     baseUrl: "http://localhost:3000",
     setupNodeEvents(on, config) {
       // implement node event listeners here
+      cypressReplay.default(on, config);
     },
   },
 
