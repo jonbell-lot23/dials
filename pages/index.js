@@ -63,7 +63,7 @@ export default function Home() {
 		},
 		{
 			id: 9,
-			text: 'Meg',
+			text: 'Megan',
 			image: 'https://source.unsplash.com/random/500×500/?woman',
 			enable: [],
 		},
