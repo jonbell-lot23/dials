@@ -2,44 +2,43 @@
 name: Cypress Tests
 on:
   schedule:
-	- cron: "0 * * * *"
+  - cron: "0 * * * *"
   push:
-	branches: [ main, master ]
+  branches: [ main, master ]
   pull_request:
-	branches: [ main, master ]
+  branches: [ main, master ]
 
 jobs:
   test:
-	name: Cypress tests
-	runs-on: ubuntu-latest
-	steps:
+  name: Cypress tests
+  runs-on: ubuntu-latest
+  steps:
+  - name: Checkout
+    uses: actions/checkout@v3
 
-	  - name: Checkout
-		uses: actions/checkout@v3
+  - name: Setup node
+    uses: actions/setup-node@v3
+    with:
+      node-version: 16
 
-	  - name: Setup node
-		uses: actions/setup-node@v3
-		with:
-		  node-version: 16
+  - name: Install dependencies
+    # uses: bahmutov/npm-install@v1
+    run: npm install --legacy-peer-deps
 
-	  - name: Install dependencies
-		# uses: bahmutov/npm-install@v1
-		run: npm install --legacy-peer-deps
+  - uses: actions/cache@v2
+    with:
+      path: ~/.cache/Cypress
+      key: my-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
 
-	  - uses: actions/cache@v2
-		with:
-		  path: ~/.cache/Cypress
-		  key: my-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-
-	  - name: Cypress run
-		uses: cypress-io/github-action@v4
-		with:
-			start: npm run dev
-			# quote the url to be safe against YML parsing surprises
-			wait-on: 'http://localhost:3000'
-			browser: 'Replay Firefox'
-	  - name: Upload
-		uses: replayio/action-upload@v0.4.5
-		with:
-			api-key: rwk_yMZyfiLd4na4AypdZ6xPJIaSxOJnQzb2kuaYxgeYceX
-			public: true
+  - name: Cypress run
+    uses: cypress-io/github-action@v4
+    with:
+      start: npm run dev
+      # quote the url to be safe against YML parsing surprises
+      wait-on: 'http://localhost:3000'
+      browser: 'Replay Firefox'
+  - name: Upload
+    uses: replayio/action-upload@v0.4.5
+    with:
+      api-key: rwk_yMZyfiLd4na4AypdZ6xPJIaSxOJnQzb2kuaYxgeYceX
+      public: true
