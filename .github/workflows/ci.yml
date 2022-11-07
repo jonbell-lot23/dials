@@ -40,7 +40,7 @@ jobs:
           # The Replay browser to use: 'Replay Firefox' or 'Replay Chromium'
           browser: 'Replay Chromium'
           # An optional command to run your tests.
-          # command: npm run test:replay
+          command: npm run dev
           # When true, replays will be accessible to anyone with the link.
           # This is useful for open source projects that want to collaborate
           # with external users.
