@@ -24,7 +24,7 @@ jobs:
 
       - name: Install dependencies
         # uses: bahmutov/npm-install@v1
-        run: npm install --legacy-peer-deps
+        run: npm install
 
       - uses: actions/cache@v2
         with:
