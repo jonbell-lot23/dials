@@ -15,7 +15,7 @@ export default function Home() {
 	const steps = [
 		{
 			id: 0,
-			text: 'Be born',
+			text: 'Be born!',
 			image: 'https://source.unsplash.com/random/500×500/?baby',
 			enable: [1],
 		},
