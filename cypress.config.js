@@ -3,6 +3,7 @@ const cypressReplay = require('@replayio/cypress');
 
 module.exports = defineConfig({
 	projectId: 'y3akbv',
+	video: false,
 	e2e: {
 		baseUrl: 'http://localhost:3000',
 		setupNodeEvents(on, config) {
