@@ -39,12 +39,9 @@ jobs:
         with:
           start: npm run start
           wait-on: 'http://localhost:3000'
-          browser: 'Replay Firefox'    
-        env:
-          RECORD_ALL_CONTENT: 1
-          RECORD_REPLAY_METADATA_FILE: /tmp/replay-metadata
+          browser: 'replay-chromium'    
       - name: Upload
-        uses: replayio/action-upload@v0.4.5
+        uses: replayio/action-upload@v0.5.0
         with:
           api-key: rwk_QSqsh3muK3SRPZIJBl9JC5JhNR3QUjVU612K5d3vD4e
           public: false
