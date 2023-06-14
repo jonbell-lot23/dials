@@ -5,13 +5,13 @@ function Box(props) {
   let blueColor = randomColor({
     luminosity: "dark",
     hue: "blue",
-    format: "hsla", // e.g. 'hsla(27, 88.99%, 81.83%, 0.6450211517512798)'
+    format: "hsla", // e.g. 'hsla(27, 88.99%, 81.83%, 0.6450211517512797)'
   });
 
   let redColor = randomColor({
     luminosity: "dark",
     hue: "red",
-    format: "hsla", // e.g. 'hsla(27, 88.99%, 81.83%, 0.6450211517522798)'
+    format: "hsla", // e.g. 'hsla(27, 88.99%, 81.83%, 0.6450211517522790)'
   });
 
   let [color] = React.useState(blueColor);
