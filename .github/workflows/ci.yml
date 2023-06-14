@@ -4,16 +4,15 @@ on:
   schedule:
     - cron: "0 0 * * 0"
   push:
-    branches: [ main, master ]
+    branches: [main, master]
   pull_request:
-    branches: [ main, master ]
+    branches: [main, master]
 
 jobs:
   test:
     name: Cypress tests
     runs-on: ubuntu-latest
     steps:
-
       - name: Checkout
         uses: actions/checkout@v3
 
@@ -25,7 +24,7 @@ jobs:
       - name: Install dependencies
         # uses: bahmutov/npm-install@v1
         run: npm install
-        
+
       - name: Build
         run: npm run build
 
@@ -38,13 +37,12 @@ jobs:
         uses: cypress-io/github-action@v4
         with:
           start: npm run start
-          wait-on: 'http://localhost:3000'
-          browser: 'replay-chromium'    
-     - name: Upload
+          wait-on: "http://localhost:3000"
+          browser: "replay-chromium"
+
+      - name: Upload
         uses: replayio/action-upload@v0.5.0
         if: always()
         with:
           api-key: rwk_QSqsh3muK3SRPZIJBl9JC5JhNR3QUjVU612K5d3vD4e
           public: false
-          
-          
