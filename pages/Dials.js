@@ -10,7 +10,7 @@ function Default(props) {
       className="bg-gray-200 p-3 rounded-md text-gray-500 font-bold mt-4"
       onClick={onToggle}
     >
-      Decide to live?
+      Decide to live
     </div>
   );
 }
